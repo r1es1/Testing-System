@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta content="IE=edge" http-equiv=X-UA-Compatible>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto:400,500,700&amp;subset=cyrillic" rel="stylesheet">
+
+    <link rel="stylesheet" href="/media/css/main.min.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Media queries -->
+    <!--[if lt IE 9]>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+</head>
+<body id="logged-in">
+
+<header id="top-bar">
+	
+	<ul>
+		<li><a href="/admin">Назад</a></li>
+	</ul>
+
+	<h3><strong>АДМИН-ПАНЕЛЬ</strong>!</h3>
+
+</header>
+
+    <div id="content">
+    	{% block content %}{% endblock %}
+    </div>
+
+</body>
+</html>

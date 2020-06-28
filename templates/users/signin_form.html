@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+
+	<h1>Авторизация</h1>
+
+	{% if signup_success %}
+		<h2 class="success">Регистрация успешна! Теперь Вы можете авторизоваться.</h2>
+	{% endif %}
+
+	{% if errors %}
+		<div class="errors">
+			{% for e in errors %}
+				<div>{{e}}</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	<form action="/signin" method="POST">
+		
+		<div>
+			<input type="text" name="username" placeholder="Логин" required="" value="{{data.username}}">
+		</div>
+
+		<div>
+			<input type="password" name="password" placeholder="Пароль" required="" value="{{data.password}}">
+		</div>
+
+		<div>
+			<input type="submit" value="Авторизация" name="signin">
+			<a href="/signup">Нет аккаунта?</a>
+		</div>
+
+	</form>
+
+{% endblock %}

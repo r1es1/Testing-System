@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+
+	<h1>Регистрация</h1>
+
+	{% if errors %}
+		<div class="errors">
+			{% for e in errors %}
+				<div>{{e}}</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	<form action="/signup" method="POST">
+		
+		<div>
+			<input type="text" name="username" placeholder="Логин" required="" value="{{data.username}}">
+		</div>
+
+		<div>
+			<input type="password" name="password" placeholder="Пароль" required="" value="{{data.password}}">
+		</div>
+
+		<div>
+			<input type="password" name="password2" placeholder="Повторите пароль" required="">
+		</div>
+
+		<div>
+			<input type="submit" value="Регистрация" name="signup">
+			<a href="/signin">Уже есть аккаунт?</a>
+		</div>
+
+	</form>
+
+{% endblock %}

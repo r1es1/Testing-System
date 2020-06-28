@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Тестирование{% endblock %}
+
+{% block content %}
+
+	{% if not tickets %}
+		<div class="errors">
+			<div>Билеты не найдены.</div>
+		</div>
+	{% else %}
+
+	{% if errors %}
+		<div class="errors">
+			{% for e in errors %}
+				<div>{{e|raw}}</div>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+
+		{% for n, v in tickets %}
+
+			<div class="ticket">
+				<h2 class="ticket-num">Билет #{{n}}</h2>
+
+				<div class="table-wrapper">
+					<table class="fl-table">
+						<thead>
+							<tr>
+								<th>Вариант #</th>
+								<th>Статус</th>
+								<th>Действия</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for t in v %}
+								<tr>
+									<td>{{t.variant_number}}</td>
+									<td>
+										{% if t.status is null %}
+											<em style="color: gray;">Не взят</em>
+										{% elseif t.status == 0 %}
+											<em style="color: green;">Взят</em>
+											{% if t.attempts >= 1 %}
+												<small>Попытка #{{t.attempts+1}}</small>
+											{% endif %}
+											<hr>
+											Осталось времени: <strong class='back-to-future' data-diff='{{t.diff}}'>{{t.time_left}}</strong>
+											<hr>
+											<a href="/tickets/view/{{n}}/{{t.variant_number}}">Скачать вопрос</a>
+										{% elseif t.status == 1 %}
+											<em style="color: red;">Не сдан</em>
+										{% elseif t.status == 2 %}
+											<em style="color: red;">Не сдан</em>
+										{% elseif t.status == 3%}
+												<strong style="color: green;">Сдан!</strong>
+										{% endif %}
+									</td>
+									<td>
+										{% if t.status is null %}
+											<a href="/tickets/take/{{n}}/{{t.variant_number}}">Взять</a>
+										{% elseif t.status == 0 %}
+											<form action="/tickets/check/{{n}}/{{t.variant_number}}" method="POST" enctype="multipart/form-data">
+												<input type="file" name="answer" required="">
+
+												<hr>
+
+												<input type="submit" name="check" value="Сдать">
+											</form>
+
+										{% elseif t.status == 1 %}
+											<a href="/tickets/take/{{n}}/{{t.variant_number}}">Пересдать</a>
+										{% elseif t.status == 2 %}
+											<em style="color: red;">Пересдать нельзя.</em>
+										{% elseif t.status == 2 %}
+											<em style="color: red;">...</em>
+										{% endif %}
+										
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+		{% endfor %}
+		<i style="float: right; color: gray;">Copyright © «2020» «R1ES - Artur Ismailov»</i>
+	{% endif %}
+
+{% endblock %}
